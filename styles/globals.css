@@ -1,0 +1,297 @@
+body {
+	background: #2d3748;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: Helvetica, Arial, sans-serif;
+	color: white;
+}
+
+h1 {
+	font-size: 3rem;
+	font-weight: 900;
+	letter-spacing: -0.05rem;
+}
+
+h2 {
+	font-size: 2.5rem;
+	letter-spacing: -0.025rem;
+}
+
+p,
+li {
+	color: #a0aec0;
+}
+
+.ui.menu {
+	background: #171923;
+	border-radius: 0;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.ui.menu .item {
+	color: #e2e8f0;
+	font-weight: 600;
+	letter-spacing: 0.025rem;
+	font-size: 1.15rem;
+}
+
+.address {
+	font-weight: 400;
+	font-size: 1rem;
+	font-style: italic;
+}
+
+.ui.button {
+	background: rgb(255, 255, 255, 0.15);
+	color: #e2e8f0;
+	font-weight: 600;
+	letter-spacing: 0.025rem;
+	font-size: 1.25rem;
+}
+
+.ui.button:hover {
+	background: rgb(255, 255, 255, 0.3);
+	color: #e2e8f0;
+}
+
+/* For the token info */
+
+.tokenInfoContainer {
+	display: flex;
+}
+
+.tokenInfoSection {
+	display: flex;
+}
+
+.tokenInfoBox {
+	width: 300px;
+	text-align: center;
+	background: rgb(0, 0, 0, 0.4);
+	border-radius: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+.bigNumber {
+	color: white;
+	font-size: 2rem;
+	margin-bottom: 5px;
+}
+
+.bigNumberDescription {
+	font-style: italic;
+}
+
+/* Button customization */
+
+.interfaceButtons {
+	border: 1px solid #90cdf4 !important;
+	color: #90cdf4 !important;
+}
+
+.ui.button:focus {
+	background: rgb(255, 255, 255, 0.08);
+	color: #e2e8f0;
+}
+
+.adminButtons {
+	margin-top: 10px !important;
+}
+
+.playButton {
+	display: flex;
+	justify-content: space-between;
+}
+
+#play-button {
+	background-color: green;
+}
+
+#play-button:hover {
+	background-color: olive;
+}
+
+#play-button-text {
+	color: white;
+	padding-left: 8px;
+}
+
+/* layout */
+
+.container {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.mainBody {
+	background: #2d3748;
+	margin-left: 40px;
+	margin-right: 40px;
+	padding-top: 40px;
+}
+
+.inputBox {
+	padding-top: 10px;
+	padding-right: 20%;
+}
+
+.actionGrid {
+	margin-top: 20px !important;
+	margin-bottom: 20px !important;
+}
+
+.actionGrid h2 {
+	margin-bottom: 0px;
+}
+
+.stakingHeaderRow {
+	padding-left: 20px !important;
+	margin-right: 15px;
+}
+
+/* Pause button */
+
+.dangerZone {
+	margin-top: 10px;
+	margin-bottom: 50px;
+	padding: 10px;
+	position: absolute;
+	right: 100px;
+	top: 150px;
+
+	border: 1px solid red;
+	border-radius: 10px;
+	width: 400px;
+	text-align: center;
+}
+
+/* Staking layouts */
+
+.stakingBox {
+	text-align: left;
+	background: rgb(0, 0, 0, 0.4);
+	border-radius: 10px;
+	padding-top: 15px !important;
+	padding-left: 20px;
+	padding-bottom: 15px !important;
+	margin-bottom: 10px;
+	margin-right: 10px;
+}
+
+.stakingPoolColumnTitle {
+	font-style: italic;
+}
+
+.stakingPoolBody p,
+li {
+	color: white;
+	font-size: 1.15em;
+}
+
+.stakingPool {
+	margin-top: 5px;
+	margin-bottom: 15px;
+}
+
+.ui.secondary.pointing.menu {
+	margin-top: 10px;
+	margin-left: -20px;
+	background: rgb(255, 255, 255, 0.2);
+}
+
+.ui.secondary.pointing.menu .item {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.ui.secondary.pointing.menu a.active.item {
+	color: #90cdf4 !important;
+	border-color: #90cdf4 !important;
+}
+
+.ui.secondary.pointing.menu a:hover {
+	color: #90cdf4 !important;
+	border-color: #90cdf4 !important;
+}
+
+.stakingSubBox p {
+	font-size: 1.1rem;
+}
+
+.stakingInput input {
+	background: #2d3748 !important;
+	color: #a0aec0 !important;
+	width: 450px;
+}
+
+.stakingButton {
+	margin-left: 20px !important;
+	font-size: 1rem !important;
+}
+
+.claimButton {
+	font-size: 1rem !important;
+	width: 300px;
+}
+
+.lockingDropdown {
+	background: transparent !important;
+	width: 200px !important;
+	border: 1px solid #90cdf4 !important;
+	color: #90cdf4 !important;
+	margin-left: 20px;
+}
+
+.ui.dropdown .menu > .item {
+	background: rgb(0, 0, 0, 0.87);
+	border: 1px solid #90cdf4;
+	color: #90cdf4;
+}
+
+.ui.dropdown .menu .selected.item {
+	background: rgb(0, 0, 0, 0.87) !important;
+	border: 1px solid #90cdf4 !important;
+	color: #90cdf4 !important;
+}
+
+.ui.selection.visible.dropdown > .text:not(.default) {
+	color: #90cdf4 !important;
+}
+
+.stakingInputAndButton {
+	display: flex;
+}
+
+.errorMessage {
+	color: red;
+}
+
+.stakingCenter {
+	padding-bottom: 100px;
+}
+
+.lpStakingBox {
+	padding-bottom: 100px;
+}
+
+.App {
+	height: 100%;
+}
+
+/* Admin Page */
+
+.adminInput input {
+	background: #a0aec0 !important;
+	color: #2d3748 !important;
+	width: 450px;
+}
