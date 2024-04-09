@@ -132,10 +132,10 @@ export default function Home({ raiderPrice, aurumPrice, aurumMaticPrice, raiderM
   }
 
   const setProvider = () => {
-    try { 
+    try {
       return new ethers.providers.Web3Provider(window.ethereum);
     } catch (error) {
-      console.log(error);
+      console.log("setProvider error: ", error)
     }
   }
 

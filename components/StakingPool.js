@@ -16,7 +16,6 @@ const StakingPool = ({ pool, userAddress, stakingContractAddress, setProvider, l
   const [opened, setOpened] = useState(false);
   const [activeTab, setActiveTab] = useState('staking');
 
-
   const [rewardToken, setRewardToken] = useState('');
   const [stakingToken, setStakingToken] = useState('');
   const [dailyEmissions, setDailyEmissions] = useState('');
@@ -30,8 +29,20 @@ const StakingPool = ({ pool, userAddress, stakingContractAddress, setProvider, l
   const [hasAllowance, setHasAllowance] = useState('');
   const [error, setError] = useState('');
 
-  const setStakingContract = (data) => {
+  /* const setStakingContract = (data) => {
+    console.log("RaiderStaking.abi: ", RaiderStaking.abi)
+    console.log("stakingContractAddress: ", stakingContractAddress)
+    console.log("data from setStakingContract: ", data)
     return new ethers.Contract(stakingContractAddress, RaiderStaking.abi, data);
+  } */
+  const setStakingContract = () => {
+    if (typeof window.ethereum !== 'undefined') {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      console.log("stakingContractAddress: ", stakingContractAddress)
+      return new ethers.Contract(stakingContractAddress, RaiderStaking.abi, signer);
+    }
+    return null;
   }
 
   const setStakingTokenContract = (data) => {
@@ -42,35 +53,59 @@ const StakingPool = ({ pool, userAddress, stakingContractAddress, setProvider, l
     return new ethers.Contract(rewardToken, RaiderToken.abi, data);
   }
 
+  const checkNetwork = async () => {
+    const provider = setProvider();
+    // Make sure provider is defined before trying to call getNetwork on it
+    if (provider) {
+      const network = await provider.getNetwork();
+      console.log(network); // Check the output to confirm the network
+  
+      if (network.chainId !== 137) {
+        console.error('Connected to the wrong network');
+      }
+    }
+  };
+  
+  // Call checkNetwork inside a useEffect hook to ensure it's client-side
+  useEffect(() => {
+    checkNetwork();
+  }, []);
+
   // CONTRACT VIEWS
 
   // Get the address of the Reward token
   const fetchRewardToken = async () => {
-    if (typeof window.ethereum !== 'undefined') {
-      const contract = setStakingContract(setProvider());
+    const contract = setStakingContract();
+    if (contract) {
+      console.log("fetchRewardToken contract:", contract);
       try {
         const data = await contract.showRewardToken();
         setRewardToken(data);
       } catch (err) {
-        // console.log("error: ", err);
-        fetchRewardToken();
+        console.error("Error fetching reward token:", err);
+        console.error("Error details:", err.message);
+        console.error("Error code:", err.code);
+        console.error("Error data:", err.data);
       }
     }
-  }
+  };
 
   // Get the address of the Staking token
   const fetchStakingToken = async () => {
-    if (typeof window.ethereum !== 'undefined') {
-      const contract = setStakingContract(setProvider());
-      try {
-        const data = await contract.showStakingToken();
-        setStakingToken(data);
-      } catch (err) {
-        // console.log("error: ", err);
-        fetchStakingToken();
-      }
+  const contract = setStakingContract();
+  if (contract) {
+    console.log("fetchStakingToken contract: ", contract)
+    try {
+      const data = await contract.showStakingToken();
+      setStakingToken(data);
+    } catch (err) {
+      console.log("Error details:", err);
+      console.log("Error message:", err.message);
+      console.log("Error code:", err.code);
+      console.log("Error data:", err.data);
     }
   }
+}
 
   // Check what the daily reward rate is
   const fetchDailyEmissions = async () => {
@@ -80,8 +115,8 @@ const StakingPool = ({ pool, userAddress, stakingContractAddress, setProvider, l
         const data = await contract.dailyEmissionsRate();
         setDailyEmissions(ethers.utils.formatEther(data));
       } catch (err) {
-        // console.log("error: ", err);
-        fetchDailyEmissions();
+        console.log("error fetchDailyEmissions: ", err);
+        // fetchDailyEmissions();
       }
     }
   }
@@ -93,10 +128,11 @@ const StakingPool = ({ pool, userAddress, stakingContractAddress, setProvider, l
       const contract = setStakingContract(setProvider());
       try {
         const data = await contract.addressStakedBalance(userAddress);
+        console.log("data fetchStake: ", data)
         setStakedAmount(ethers.utils.formatEther(data));
       } catch (err) {
-        // console.log(err);
-        fetchStake();
+        console.log("error fetchStake: ", err);
+        // fetchStake();
       }
     }
   }
@@ -108,10 +144,11 @@ const StakingPool = ({ pool, userAddress, stakingContractAddress, setProvider, l
       const contract = setStakingContract(setProvider());
       try {
         const data = await contract.userPendingRewards(userAddress);
+        console.log("fetchUserRewards data: ", data)
         setUserRewardsBalance(ethers.utils.formatEther(data));
       } catch (err) {
-        // console.log(err);
-        fetchUserRewards();
+        console.log("error fetchUserRewards: ", err);
+        // fetchUserRewards();
       }
     }
   }
@@ -123,8 +160,9 @@ const StakingPool = ({ pool, userAddress, stakingContractAddress, setProvider, l
         const data = await contract.totalStakedSupply();
         setTotalStakedSupply(ethers.utils.formatEther(data));
       } catch (err) {
+        console.log("error fetchTotalStakedSupply: ", err);
         // console.log("error: ", err);
-        fetchTotalStakedSupply();
+        // fetchTotalStakedSupply();
       }
     }
   }
@@ -280,8 +318,12 @@ const StakingPool = ({ pool, userAddress, stakingContractAddress, setProvider, l
   // LOAD ALL THE THINGS
   useEffect(() => {
     if (stakingContractAddress) {
+      console.log("load??")
       fetchDailyEmissions();
+      console.log("load stakingToken: ", stakingToken)
+      console.log("load rewardToken: ", rewardToken)
       if (stakingToken && rewardToken) {
+        console.log("load again??")
         checkStakingAllowance();
         fetchStake();
         fetchUserRewards();
@@ -293,16 +335,14 @@ const StakingPool = ({ pool, userAddress, stakingContractAddress, setProvider, l
         }
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[userAddress, stakingToken, rewardToken, stakeAmount, lpTokenPrice, raiderPrice, stakingContractAddress, totalStakedSupply]);
 
   useEffect(() => {
-    setProvider();
     if (stakingContractAddress) {
+      console.log("here!!!!")
       fetchStakingToken();
       fetchRewardToken();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[stakingContractAddress, userAddress]);
 
   const toggleOpened = () => {

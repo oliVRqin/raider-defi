@@ -46,8 +46,8 @@ const StakingManager = ( {userAddress, stakingContractAddress, contractName, set
         const data = await contract.showRewardToken();
         setRewardToken(data);
       } catch (err) {
-        // console.log("error: ", err);
-        fetchRewardToken();
+        console.log("error: ", err);
+        // fetchRewardToken();
       }
     }
   }
@@ -60,8 +60,8 @@ const StakingManager = ( {userAddress, stakingContractAddress, contractName, set
         const data = await contract.showStakingToken();
         setStakingToken(data);
       } catch (err) {
-        // console.log("error: ", err);
-        fetchStakingToken();
+        console.log("error: ", err);
+        // fetchStakingToken();
       }
     }
   }
@@ -74,8 +74,8 @@ const StakingManager = ( {userAddress, stakingContractAddress, contractName, set
         const data = await contract.dailyEmissionsRate();
         setDailyEmissions(ethers.utils.formatEther(data));
       } catch (err) {
-        // console.log("error: ", err);
-        fetchDailyEmissions();
+        console.log("error: ", err);
+        // fetchDailyEmissions();
       }
     }
   }
@@ -103,8 +103,8 @@ const StakingManager = ( {userAddress, stakingContractAddress, contractName, set
         const data = await contract.addressStakedBalance(userAddress);
         setStakedAmount(ethers.utils.formatEther(data));
       } catch (err) {
-        // console.log(err);
-        fetchStake();
+        console.log("fetchStake err: ", err);
+        // fetchStake();
       }
     }
   }
@@ -116,8 +116,8 @@ const StakingManager = ( {userAddress, stakingContractAddress, contractName, set
         const data = await contract.totalStakedSupply();
         setTotalStakedSupply(ethers.utils.formatEther(data));
       } catch (err) {
-        // console.log("error: ", err);
-        fetchTotalStakedSupply();
+        console.log("error fetchTotalStakedSupply: ", err);
+        // fetchTotalStakedSupply();
       }
     }
   }
